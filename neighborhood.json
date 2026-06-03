@@ -10,6 +10,6 @@
   "addresses": {
     "cloud": "https://rapp-resident-kw165843.azurewebsites.net/api",
     "kited": "first-twin-hosts (turn the lights on)",
-    "local": "twin_chat_agent.py  host=local channel=neighborhood  (fully offline — the same protocol, non-v)"
+    "local": "twin_chat_agent.py  action=hatch name=<twin> host=local channel=neighborhood  (fully offline — the same protocol, non-v)"
   }
 }
