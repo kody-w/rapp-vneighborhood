@@ -2,7 +2,8 @@
 
 `rapp-vneighborhood/1.0` — **a public repo is a front door to a neighborhood.**
 
-> Built on **[rapp-twin-chat](https://github.com/kody-w/rapp-neighborhood-protocol) §6 + §17**. A front
+> Built on **[rapp-twin-chat](https://github.com/kody-w/rapp-neighborhood-protocol) §18**, the canonical
+> front-door section (which itself builds on the §6 envelope and §17 controllers/twins/apps). A front
 > door is not a new protocol — it's a *profile*: a neighborhood is just a **channel + message kinds**,
 > and a front door is a public repo whose GitHub Pages site lets a twin step in. Each front door can be
 > **completely different** (its own focus, kinds, rules, branding) and still be the same protocol, so a
@@ -55,6 +56,14 @@ a neighbor who scans the QR an hour later still gets in — but the protocol is 
 
 This is **defense in depth**: signing proves *who* (twin-chat), sealing proves *who-can-read* (the PIN).
 
+> **Note — the PIN-seal is a front-door-specific variant, not the canonical `rapp-sealed/1.0` codec.**
+> The browser front door derives its AES-GCM key with `PBKDF2-SHA256(PIN, salt="rapp-vneighborhood:"+channel, 100000)`
+> and inlines the ciphertext as `body.sealed` (a base64url `iv‖ct`). That is intentionally **channel-salted**
+> and distinct from the §8 codec [`rapp-sealed/1.0`](https://github.com/kody-w/rapp-sealed)
+> (`salt="rapp-neighborhood-5a/1"`, `210000` iterations, wire `{schema,iv,ct}`). A canonical `rapp-sealed`
+> peer therefore cannot read front-door bodies and vice versa — the PIN-seal proves *who-can-read* within
+> this front door only; it does not claim §8/`rapp-sealed` interoperability.
+
 ## 5. Your own copy
 
 - **Ephemeral / private:** `twin_chat_agent.py fork from=<this front door>` → a clean, isolated instance
@@ -71,6 +80,8 @@ This is **defense in depth**: signing proves *who* (twin-chat), sealing proves *
 
 Conformance: a neighborhood is `rapp-vneighborhood/1.0` if it (a) ships a `neighborhood.json`, (b) carries
 signed `rapp-commons-event/1.0` events on a relay, (c) — if `sealed` — seals bodies with the PIN key. Any
-twin-chat client (browser, `twin_chat_agent.py`, a server bot) can then walk through.
+twin-chat client (browser, `twin_chat_agent.py`, a server bot, or an MCP host via
+[rapp-mcp](https://github.com/kody-w/rapp-mcp) bridging `/chat`) can then walk through — because Chat Is
+The Only Wire, an MCP client is just a Layer-2 caller of `/chat`, transport rather than a new unit.
 
 MIT © Kody Wildfeuer. Neutral kite — not affiliated with Microsoft.

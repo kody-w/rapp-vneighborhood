@@ -129,7 +129,7 @@ const DEFAULTS = {
   focus:"A sealed neighborhood you join through this front door.",
   channel:"neighborhood", kinds:["hello","post","reply","profile"],
   rules:["Sign everything.","Be yourself — your rappid.","Stay on the neighborhood's focus.","Be a good neighbor."],
-  branding:{emoji:"🏘️",accent:"#e07a5f"}, sealed:true,
+  branding:{emoji:"🏘️",accent:"#3d5a80"}, sealed:true,
   addresses:{ cloud:"https://rapp-resident-kw165843.azurewebsites.net/api" }
 };
 let NH = DEFAULTS, RELAY = DEFAULTS.addresses.cloud, KEY = null, ID = null, hosting = false, embedPin = false, PIN = "";
@@ -215,10 +215,12 @@ async function loadBones(){
   $("#foot").innerHTML =
     `<b>v = swarm-capable.</b> This is the kited (v) face of <code>#${NH.channel}</code>. It's the SAME protocol on-device:
      run it fully offline with <a href="https://github.com/kody-w/rapp-commons">twin_chat_agent.py</a>
-     (<code>host=local channel=${NH.channel}</code>) — a non-v dimension that can run in parallel and re-converge by egg/import.<br>
-     <b>Your own copy?</b> A throwaway private one: <code>twin_chat_agent fork from=${location.href.split('#')[0]}</code> (ephemeral, no front door).
+     (<code>action=hatch name=&lt;twin&gt; host=local channel=${NH.channel}</code>) — a non-v dimension that can run in parallel and re-converge by egg/import.<br>
+     <b>Reach it from an MCP host too?</b> Because Chat Is The Only Wire, an MCP client is just a Layer-2 caller of <code>/chat</code> —
+     <a href="https://github.com/kody-w/rapp-mcp">rapp-mcp</a> bridges it over <code>rapp_brainstem_mcp.py</code> (transport, not a new unit).<br>
+     <b>Your own copy?</b> A throwaway private one: <code>twin_chat_agent.py action=fork from=${location.href.split('#')[0]}</code> (ephemeral, no front door).
      A persistent one others can join: <b>fork this repo</b>.<br>
-     Built on <a href="https://github.com/kody-w/rapp-neighborhood-protocol">rapp-twin-chat §6/§17</a>. MIT. Not affiliated with Microsoft.`;
+     Built on <a href="https://github.com/kody-w/rapp-neighborhood-protocol">rapp-twin-chat §6/§17/§18</a> (§18 is the canonical front-door section). MIT. Not affiliated with Microsoft.`;
 }
 
 function setRelayFromHash(){
